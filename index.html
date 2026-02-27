@@ -4,158 +4,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Inspiration</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Just Because</title>
+    <meta name="description" content="A collection of comforting cards for when you're far from home.">
     <style>
-        :root {
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.8);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
-        * {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+        }
+
+        :root {
+            --bg: #f8f6f4;
+            --card-bg: #ffffff;
+            --card-back-bg: #fdf2f0;
+            --text-primary: #3d3632;
+            --text-secondary: #7a6f69;
+            --text-light: #a89e98;
+            --accent-pink: #e8c4c0;
+            --accent-pink-deep: #d4a09a;
+            --accent-warm: #f0e0d8;
+            --border: #ece6e1;
+            --shadow-soft: rgba(61, 54, 50, 0.06);
+            --shadow-medium: rgba(61, 54, 50, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            padding: 20px;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 30%, var(--accent-pink) 0.5px, transparent 0.5px),
+                radial-gradient(circle at 80% 70%, var(--accent-warm) 0.5px, transparent 0.5px),
+                radial-gradient(circle at 50% 50%, var(--border) 0.5px, transparent 0.5px);
+            background-size: 60px 60px, 80px 80px, 45px 45px;
+            opacity: 0.4;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .header {
+            text-align: center;
+            padding: 32px 24px 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .header h1 span {
+            font-style: italic;
+            color: var(--accent-pink-deep);
+        }
+
+        .header .subtitle {
+            font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 420px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .header .divider {
+            width: 32px;
+            height: 2px;
+            background: var(--accent-pink);
+            margin: 14px auto 0;
+            border-radius: 1px;
+        }
+
+        .hint {
+            text-align: center;
+            padding: 8px 24px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hint p {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hint .tap-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--text-light);
+            border-radius: 4px;
+            position: relative;
+            animation: tapPulse 2.5s ease-in-out infinite;
+        }
+
+        .hint .tap-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: var(--text-light);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes tapPulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
             }
 
             50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
+                opacity: 1;
+                transform: scale(1.05);
             }
         }
 
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            transform: translateY(0);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
-        }
-
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--glass-border);
-            margin-bottom: 24px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.5s ease;
-        }
-
-        .profile-img:hover {
-            transform: rotate(360deg) scale(1.05);
-        }
-
-        .quote-container {
+        .cards-container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px 24px 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
             position: relative;
-            margin-bottom: 30px;
+            z-index: 1;
         }
 
-        .quote-icon {
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.2);
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            z-index: -1;
-            line-height: 1;
-        }
-
-        h1.quote-text {
-            color: var(--text-primary);
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-weight: 600;
-            line-height: 1.4;
-            margin-bottom: 16px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        p.author {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .btn-new-quote {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid var(--glass-border);
-            color: white;
-            padding: 12px 28px;
-            font-size: 1rem;
-            border-radius: 30px;
+        .flip-card {
+            perspective: 1000px;
+            height: 200px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            outline: none;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 14px;
+            text-align: center;
+        }
+
+        .flip-card-front {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            box-shadow:
+                0 1px 3px var(--shadow-soft),
+                0 8px 24px var(--shadow-soft);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .flip-card:hover .flip-card-front {
+            box-shadow:
+                0 2px 8px var(--shadow-medium),
+                0 12px 32px var(--shadow-soft);
+        }
+
+        .flip-card-front .card-emoji {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .flip-card:hover .flip-card-front .card-emoji {
+            transform: scale(1.1);
+        }
+
+        .flip-card-front .card-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-pink-deep);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .flip-card-front .card-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 0.9rem;
             font-weight: 400;
-            margin-top: 10px;
+            color: var(--text-primary);
+            line-height: 1.4;
         }
 
-        .btn-new-quote:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        .btn-new-quote:active {
-            transform: scale(0.95);
-        }
-
-        .fade-out {
+        .flip-card-front .card-tap {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.6rem;
+            color: var(--text-light);
+            letter-spacing: 0.06em;
             opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.3s ease;
         }
 
-        .fade-in {
+        .flip-card:hover .flip-card-front .card-tap {
             opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
-        @media (max-width: 480px) {
-            .glass-card {
-                padding: 30px 20px;
+        .flip-card-back {
+            background: var(--card-back-bg);
+            border: 1px solid var(--accent-pink);
+            transform: rotateY(180deg);
+            box-shadow:
+                0 1px 3px var(--shadow-soft),
+                0 8px 24px var(--shadow-soft);
+        }
+
+        .flip-card-back .back-message {
+            font-size: 0.72rem;
+            color: var(--text-primary);
+            line-height: 1.55;
+            font-weight: 300;
+            max-width: 200px;
+        }
+
+        .flip-card-back .back-close {
+            position: absolute;
+            bottom: 8px;
+            font-size: 0.6rem;
+            color: var(--text-light);
+            letter-spacing: 0.06em;
+        }
+
+        .flip-card {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: cardEnter 0.6s ease forwards;
+        }
+
+        .flip-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .flip-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .flip-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .flip-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .flip-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .flip-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .flip-card:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .flip-card:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes cardEnter {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 0 24px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer p {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        .footer p span {
+            color: var(--accent-pink-deep);
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 24px 16px 8px;
             }
 
-            .profile-img {
-                width: 100px;
-                height: 100px;
+            .header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 4px;
+            }
+
+            .header .subtitle {
+                font-size: 0.72rem;
+                line-height: 1.4;
+            }
+
+            .header .divider {
+                margin: 8px auto 0;
+            }
+
+            .hint {
+                padding: 4px 16px 0;
+            }
+
+            .hint p {
+                font-size: 0.65rem;
+            }
+
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 12px 12px 20px;
+                gap: 10px;
+            }
+
+            .flip-card {
+                height: 150px;
+            }
+
+            .flip-card-front,
+            .flip-card-back {
+                padding: 12px 10px;
+                border-radius: 12px;
+            }
+
+            .flip-card-front .card-emoji {
+                font-size: 1.3rem;
+                margin-bottom: 6px;
+            }
+
+            .flip-card-front .card-label {
+                font-size: 0.5rem;
+                margin-bottom: 4px;
+            }
+
+            .flip-card-front .card-title {
+                font-size: 0.75rem;
+                line-height: 1.3;
+            }
+
+            .flip-card-front .card-tap {
+                opacity: 0.6;
+                font-size: 0.5rem;
+                bottom: 6px;
+            }
+
+            .flip-card-back .back-message {
+                font-size: 0.6rem;
+                line-height: 1.45;
+                max-width: 100%;
+            }
+
+            .flip-card-back .back-close {
+                font-size: 0.5rem;
+                bottom: 5px;
+            }
+
+            .footer {
+                padding: 0 16px 16px;
+            }
+
+            .footer p {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 900px) {
+            .cards-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 14px;
+            }
+
+            .flip-card {
+                height: 190px;
             }
         }
     </style>
@@ -163,53 +443,113 @@
 
 <body>
 
-    <div class="glass-card">
-        <div class="quote-container" id="quoteContainer">
-            <span class="quote-icon">"</span>
-            <h1 class="quote-text" id="quoteText">Loading inspiration...</h1>
-            <p class="author" id="quoteAuthor"></p>
-        </div>
+    <header class="header">
+        <h1>Just <span>Because</span></h1>
+        <p class="subtitle">A little reminder that even on the hard days, there's still something worth holding on to.
+            You're not alone in
+            this.</p>
+        <div class="divider"></div>
+    </header>
 
-        <button class="btn-new-quote" onclick="generateNewQuote()">Inspire Me</button>
+    <div class="hint">
+        <p><span class="tap-icon"></span> tap a card to open it</p>
     </div>
 
+    <main class="cards-container" id="cardsContainer"></main>
+
+    <footer class="footer">
+        <p>made with quiet care &amp; a little bit of <span>&hearts;</span></p>
+    </footer>
+
     <script>
-        const quotes = [
-            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-            { text: "Every day brings new choices and new opportunities.", author: "Martha Beck" },
-            { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-            { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
-            { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
-            { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
-            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
-            { text: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
-            { text: "Act as if what you do makes a difference. It does.", author: "William James" },
-            { text: "Limit your 'always' and your 'nevers'.", author: "Amy Poehler" },
-            { text: "Happiness is not something ready made. It comes from your own actions.", author: "Dalai Lama" },
-            { text: "No matter what people tell you, words and ideas can change the world.", author: "Robin Williams" }
+        const cards = [
+            {
+                emoji: '�',
+                title: 'Open this when you need a fresh start',
+                message: 'Every sunrise is proof that new beginnings aren\'t just possible — they\'re guaranteed. Yesterday is done. Today is yours. You don\'t need permission to start over. Just begin.'
+            },
+            {
+                emoji: '💪',
+                title: 'Open this when you doubt yourself',
+                message: 'You\'ve already done hard things you once thought were impossible. Remember that. The voice saying "you can\'t" has been wrong before, and it\'s wrong now. Trust the version of you that keeps showing up anyway.'
+            },
+            {
+                emoji: '�',
+                title: 'Open this when life feels unfair',
+                message: 'Not everything happens for a reason, but you can give meaning to anything that happens. Your story isn\'t over. The plot twist you\'ve been waiting for might be one page away.'
+            },
+            {
+                emoji: '🌊',
+                title: 'Open this when you feel overwhelmed',
+                message: 'You don\'t need to carry the whole week. Just this moment. Breathe in. Breathe out. The mountain looks huge from the bottom, but you\'ve been climbing all along. Look how far you\'ve come.'
+            },
+            {
+                emoji: '✨',
+                title: 'Open this when you need motivation',
+                message: 'Motivation doesn\'t always show up first — sometimes action does. Start small. Start messy. Just start. You\'ll be amazed how much momentum one tiny step can build.'
+            },
+            {
+                emoji: '🌙',
+                title: 'Open this when the day was rough',
+                message: 'Bad days are not bad lives. You made it through today, and that counts for something. Be gentle with yourself tonight. Rest isn\'t quitting — it\'s how you get ready for tomorrow.'
+            },
+            {
+                emoji: '🔥',
+                title: 'Open this when you feel stuck',
+                message: 'Feeling stuck doesn\'t mean you\'re not moving. Sometimes growth happens in the pauses. You\'re not behind — you\'re building something. Give yourself credit for still being in the game.'
+            },
+            {
+                emoji: '☀️',
+                title: 'Open this on a good day',
+                message: 'Look at you — having a good day! Soak it in. Remember this feeling when things get hard again. You deserve this lightness. More days like this are on the way. Believe that.'
+            }
         ];
 
-        function generateNewQuote() {
-            const container = document.getElementById('quoteContainer');
-            const quoteText = document.getElementById('quoteText');
-            const quoteAuthor = document.getElementById('quoteAuthor');
+        function createCards() {
+            const container = document.getElementById('cardsContainer');
 
-            container.classList.remove('fade-in');
-            container.classList.add('fade-out');
+            cards.forEach((card, index) => {
+                const flipCard = document.createElement('div');
+                flipCard.className = 'flip-card';
+                flipCard.setAttribute('tabindex', '0');
+                flipCard.setAttribute('role', 'button');
+                flipCard.setAttribute('aria-label', card.title);
+                flipCard.id = `card-${index}`;
 
-            setTimeout(() => {
-                const randomIndex = Math.floor(Math.random() * quotes.length);
-                const quote = quotes[randomIndex];
+                flipCard.innerHTML = `
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <span class="card-emoji">${card.emoji}</span>
+              <span class="card-label">open when</span>
+              <p class="card-title">${card.title.replace('Open this when ', '').replace('Open this on ', '')}</p>
+              <span class="card-tap">tap to open</span>
+            </div>
+            <div class="flip-card-back">
+              <p class="back-message">${card.message}</p>
+              <span class="back-close">tap to close</span>
+            </div>
+          </div>
+        `;
 
-                quoteText.textContent = quote.text;
-                quoteAuthor.textContent = `- ${quote.author}`;
+                flipCard.addEventListener('click', () => {
+                    const prev = document.querySelector('.flip-card.flipped');
+                    if (prev && prev !== flipCard) prev.classList.remove('flipped');
+                    flipCard.classList.toggle('flipped');
+                });
 
-                container.classList.remove('fade-out');
-                container.classList.add('fade-in');
-            }, 300);
+                flipCard.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        flipCard.classList.toggle('flipped');
+                    }
+                });
+
+                container.appendChild(flipCard);
+            });
         }
 
-        generateNewQuote();
+        document.addEventListener('DOMContentLoaded', createCards);
     </script>
 </body>
+
 </html>
